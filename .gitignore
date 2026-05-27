@@ -1,6 +1,5 @@
 /build/
 /files/
-*/node_modules/
 /packages/backend/src/generated/
 node_modules
 /packages/backend/dev.db
