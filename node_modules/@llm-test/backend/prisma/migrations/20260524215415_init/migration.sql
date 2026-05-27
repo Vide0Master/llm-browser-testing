@@ -1,0 +1,5 @@
+-- CreateTable
+CREATE TABLE "UserData" (
+    "date" DATETIME NOT NULL PRIMARY KEY DEFAULT CURRENT_TIMESTAMP,
+    "data" JSONB NOT NULL
+);

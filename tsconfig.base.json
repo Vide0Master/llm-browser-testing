@@ -1,0 +1,13 @@
+{
+    "compilerOptions": {
+        "strict": true,
+        "esModuleInterop": true,
+        "skipLibCheck": true,
+        "target": "ESNext",
+        "composite": true,
+        "noEmit": true
+    },
+    "include": [
+        "./packages/frontend/tsconfig.json"
+    ]
+}

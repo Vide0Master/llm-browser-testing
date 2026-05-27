@@ -1,0 +1,4 @@
+/build/
+/files/
+*/node_modules/
+/packages/backend/src/generated/

@@ -1,0 +1,21 @@
+services:
+  llm-benchmark:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: llm_benchmark_monorepo
+    restart: no
+    ports:
+      - "4500:3000"
+    environment:
+      NODE_ENV: production
+      PORT: 3000
+      DATABASE_URL: file:/app/data/benchmark.db
+    volumes:
+      - ./db_data:/app/data
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:3000"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
