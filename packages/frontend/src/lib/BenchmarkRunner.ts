@@ -53,7 +53,7 @@ export class BenchmarkRunner {
         if (!state) return;
 
         if (action === 'retry') {
-            this.stop(); // Убиваем старый зависший воркер
+            this.stop();
             state.currentRunRetries = (state.currentRunRetries || 0) + 1;
             state.isInterrupted = false;
             await this.saveState(state);
@@ -100,7 +100,7 @@ export class BenchmarkRunner {
         state.currentRunRetries = 0;
         state.isInterrupted = false;
 
-        this.stop(); // Очищаем среду после пропуска ошибки
+        this.stop();
         await this.saveState(state);
 
         if (!state.isComplete) {
@@ -137,7 +137,6 @@ export class BenchmarkRunner {
         for (let m = state.currentModelIdx; m < this.models.length; m++) {
             const model = this.models[m];
 
-            // Воркер не пересоздается, если он уже жив. Он просто загрузит новую модель.
             await this.loadModelInWorker(model.name);
 
             for (let p = state.currentPromptIdx; p < this.prompts.length; p++) {
@@ -177,7 +176,7 @@ export class BenchmarkRunner {
         }
 
         state.isComplete = true;
-        this.stop(); // Очищаем память, когда все тесты пройдены
+        this.stop();
         await this.saveState(state);
     }
 
@@ -225,7 +224,7 @@ export class BenchmarkRunner {
 
             const timeout = setTimeout(() => {
                 reject(new Error("Worker initialization timeout - WebGPU may be unavailable or download is too slow"));
-            }, 120000); // 2 минуты (модели качаются долго)
+            }, 120000);
 
             this.worker.onmessage = (e: MessageEvent<WorkerOutgoingMessage>) => {
                 if (e.data.status === 'model_ready') {

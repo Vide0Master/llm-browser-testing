@@ -34,7 +34,7 @@ ctx.onmessage = async (event: MessageEvent<WorkerIncomingMessage>) => {
 
             if (currentModel !== data.modelName) {
                 const reloadConfig = isMobile ? {
-                    context_window_size: 1024, // Оптимизировано для телефонов
+                    context_window_size: 1024,
                     kvCacheQuantization: "q4f16_1",
                     initBin: 1
                 } : {
@@ -66,13 +66,12 @@ ctx.onmessage = async (event: MessageEvent<WorkerIncomingMessage>) => {
             const startTime = performance.now();
             let ttftMs = 0;
 
-            // WEB-LLM АВТОМАТИЧЕСКИ ПРИМЕНИТ ШАБЛОН (Qwen/Llama) К ЭТОМУ МАССИВУ
             const messages = [
                 { role: "user", content: data.text }
             ];
 
             const stream = await engine.chat.completions.create({
-                messages: messages as any, // Приводим тип, если компилятор ругается
+                messages: messages as any,
                 stream: true,
                 temperature: 0.1,
                 max_tokens: isMobile ? Math.min(data.maxTokens || 256, 256) : (data.maxTokens || 512)

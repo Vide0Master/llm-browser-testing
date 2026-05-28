@@ -58,7 +58,6 @@ export const Benchmark: React.FC = () => {
     const runnerRef = useRef<BenchmarkRunner | null>(null);
     const activeRunElementRef = useRef<HTMLDivElement | null>(null);
 
-    // Мгновенная очистка текста при переходе на следующий промпт или модель
     useEffect(() => {
         // eslint-disable-next-line react-hooks/set-state-in-effect
         setLiveText('');
@@ -85,7 +84,6 @@ export const Benchmark: React.FC = () => {
         }
     }, [state?.currentModelIdx, state?.currentPromptIdx, state?.currentRunIdx, isRunning, state?.isInterrupted]);
 
-    // Обработка потери WebGPU контекста при переключении табов/окон на мобильных
     useEffect(() => {
         const handleVisibilityChange = () => {
             if (document.hidden && isRunning) {
@@ -142,7 +140,6 @@ export const Benchmark: React.FC = () => {
         setIsReporting(false);
         initRunner();
 
-        // Передаем текст отчета (если он не пустой) вместе с выбранным действием
         await runnerRef.current?.resolveInterruption(action, reportText.trim() ? reportText : undefined);
         setReportText('');
         setIsRunning(false);
@@ -275,7 +272,7 @@ export const Benchmark: React.FC = () => {
 
                     return (
                         <div key={modelName} className={`flex flex-col gap-4 transition-all duration-500 ${opacityClass}`}>
-                            {/* HEADER МОДЕЛИ */}
+                            {/* model header */}
                             <div className="flex items-center gap-3 border-b border-gray-800 pb-3">
                                 {isModelFinished ? <CheckCircle className="text-green-500" size={24} /> : <Box className="text-green-500" size={24} />}
                                 <h2 className="text-2xl font-semibold text-gray-100 truncate">
@@ -286,7 +283,7 @@ export const Benchmark: React.FC = () => {
                                 </span>
                             </div>
 
-                            {/* СПИСОК ПРОМПТОВ */}
+                            {/* prompt list */}
                             {!isModelWaiting && (
                                 <div className="flex flex-col gap-6 pl-2 md:pl-6 border-l-2 border-gray-800/50 ml-3">
                                     {defaultConfig.prompts.map((prompt, pIdx) => {

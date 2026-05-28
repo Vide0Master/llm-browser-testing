@@ -1,5 +1,5 @@
 export interface Model {
-    name: string; // ID модели в реестре Web-LLM (например, "Llama-3.2-1B-Instruct-q4f16_1-MLC")
+    name: string;
 }
 
 export interface BenchmarkConfig {
@@ -54,7 +54,6 @@ export interface DownloadProgressData {
     progress?: number;
 }
 
-// Убрали modelUrl, так как Web-LLM сам знает, откуда качать свои модели
 export type WorkerInitMessage = { type: 'init'; modelName: string };
 export type WorkerGenerateMessage = { type: 'generate'; text: string; maxTokens?: number };
 export type WorkerIncomingMessage = WorkerInitMessage | WorkerGenerateMessage;
